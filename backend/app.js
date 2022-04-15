@@ -1,21 +1,24 @@
 // Recupération Express et mongoose
 const express = require('express');
-
 const mongoose = require('mongoose');
+
+//Import le fichier de variables d'environnement
 const dotenv = require("dotenv");
 
 // OWASP
 const helmet = require("helmet"); // Sécurisation des en-tête 
 
+//Import path (pour le dossier static 'images')
+const path = require('path');
+
 // Recupération des routes
 
+const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
-
-
 
 const app = express();
 
-////Import le fichier de variables d'environnement
+//Import le fichier de variables d'environnement
 dotenv.config();
 
 // Connection à la base données
@@ -41,7 +44,12 @@ app.use((req, res, next) => {
    next();
  });
 
- //Défini le chemin de la route des users
+
+ // affichage des images 
+ app.use("/images", express.static(path.join(__dirname,'images')))
+
+//Défini le chemin de la route des sauces et users
+app.use('/api/sauce',sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 app.use ((req,res) => {
