@@ -4,7 +4,7 @@ const multer = require('multer');
 // Les extensions gérées
 const MIME_TYPES = {
     'image/jpg': 'jpg',
-    'image/jpeg': 'jepg',
+    'image/jpeg': 'jpg',
     'image/png': 'png'
   };
 
